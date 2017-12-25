@@ -55,6 +55,34 @@
 	color: #fff !important;
 }
 
+.nav.navbar-nav .nav-item .nav-link {
+	display: block !important;
+}
+.nav.navbar-nav .nav-item.menu-item {
+	position: relative;
+}
+.nav.navbar-nav .nav-item.menu-item .subnav-links {
+	position: absolute;
+	width: 250px;
+	top: 100%;
+	left: 0;
+	background: #505051;
+	padding: 0.5rem 0;
+	list-style: none;
+	display: none;
+}
+.nav.navbar-nav .nav-item.menu-item:hover .subnav-links {
+	display: block;
+}
+.nav.navbar-nav .subnav-links a { 
+	padding-left: 1rem;
+	line-height: 30px !important;
+}
+html {
+	margin-top: 0 !important;
+}
+
+
 
 </style>
 <nav class="navbar navbar-light navbar-sticky-top" id="main-nav">
@@ -120,6 +148,19 @@
 
 					<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
 
+					{% if item.get_children is not empty %}
+
+						<ul class="subnav-links">
+
+							{% for subitem in item.get_children %}
+
+								<li><a class="nav-link" href="{{ subitem.get_link }}">{{ subitem.title }}</a></li>
+
+							{% endfor %}
+
+						</ul>
+
+					{% endif %}
 				</li>
 
 			{% endfor %}
