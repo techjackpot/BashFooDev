@@ -1,0 +1,24 @@
+
+	{% if pageheader.hero_image is not empty %}
+
+		<section class="page-hero" style="background-image: url({{ pageheader.hero_image.src }});"></section>
+
+		{% include 'partials/breadcrumbs.twig' with {'color': 'white'} %}
+
+	{% else %}
+
+		{% include 'partials/breadcrumbs.twig' with {'color': 'gray'} %}
+
+		{% if pageheader.title is not empty %}
+
+			<section class="page-heading">
+				
+				{% if pageheader.title is not empty %}<h1 style="page-heading">{{ pageheader.title }}</h1>{% endif %}
+
+				{% if pageheader.tagline is not empty %}<p>{{ pageheader.tagline}}</p>{% endif %}
+
+			</section>
+
+		{% endif %}
+
+	{% endif %}

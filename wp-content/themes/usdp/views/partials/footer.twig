@@ -1,0 +1,82 @@
+
+<div class="backtotop"><img src="/assets/images/back-to-top.png" /></div>
+
+<footer class="page-footer">
+
+	<section class="social">
+
+		<div class="content-wrap">
+
+			<h4>Connect with Vandalia</h4>
+
+			<div class="social-icons">
+
+				<a class="social-icon" href="https://www.facebook.com/VandaliaRental/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+
+				<a class="social-icon" href="https://www.twitter.com/vandaliarental" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+
+				<a class="social-icon" href="https://www.linkedin.com/company/vandaliarental" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+
+				<a class="social-icon" href="https://www.instagram.com/vandaliarental/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+
+				<a class="social-icon" href="https://www.youtube.com/channel/UCB-c3bSFcnDPxCEDrYzZFhQ" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+				
+			</div>
+
+		</div>
+
+	</section>
+
+	<section class="footer">
+
+		<div class="container">
+
+			<div class="left">
+
+				<img src="/assets/images/rental-guy-logo.png" />
+
+				<div class="content-wrap">
+
+					<p>Still don’t see what you are looking for?<br/><a href="/contact">Contact Customer Care.</a></p>
+
+				</div>
+
+			</div>
+
+			<div class="right hidden-md-down">
+
+				<ul class="links">
+
+				{% for item in footermenu.get_items %}
+
+					{% if item.post_status == "publish" %}
+
+						<li><a href="{{ item.get_link }}">{{ item.title }}</a></li>
+
+					{% endif %}
+
+				{% endfor %}
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<section class="sub-footer">
+
+		<div class="container">
+
+			<span>&copy; {{ "now"|date('Y') }} Vandalia Rental</span>
+
+			<!-- <span><a href="/privacy-statement/">Privacy Statement</a></span>
+
+			<span><a href="/terms-of-use/">Terms of Use</a></span> -->
+
+		</div>
+
+	</section>
+	
+</footer>

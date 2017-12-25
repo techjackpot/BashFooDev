@@ -1,0 +1,18 @@
+<section class="our-team">
+    <h1>{{post.title}}</h1>
+    <div class="container-team">
+        
+        {% for item in acf.our_team %}
+            <div class="team-item">
+                <div class="thumbnail" style="background: url('{{item.image}}'); background-size:cover;"></div>
+                <div class="content">
+                    <h3>{{item.name}}</h3>
+                    <p class="title">{{item.title}}</p>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+</section>

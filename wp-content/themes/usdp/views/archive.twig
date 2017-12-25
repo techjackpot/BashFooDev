@@ -1,0 +1,74 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+<section class="page-hero" style="background-image: url(/assets/images/blog-hero.png);"></section>
+
+{% include 'partials/breadcrumbs.twig' with {'color': 'gray'} %}
+
+<section class="page-heading">
+	
+	<h1 style="page-heading">{{ term.name }}</h1>
+
+	<p>Vandalia Rental is the premier business solutions provider for construction rental equipment. Family owned and operated since 1961. Vandalia Rental is a thought leader in the rental world and is rapidly expanding. Stay up-to-date with Vandalia Rental and the rental equipment industry with our blog.</p>
+
+</section>
+
+<section class="blog">
+	
+	<div class="container">
+		
+		<div class="col-lg-3 sidebar">
+
+			<div class="heading-wrap">
+
+				<h3>Select a Category</h3>
+
+			</div>
+
+			<ul class="category-list">
+
+{% for term_object in terms %}
+
+	{% if term_object.parent != 0 and term_object.count > 0 %}
+
+				<li {% if term_object.id == term.id %}class="active"{% endif %}><a href="{{ term_object.link }}">{{ term_object.name }}</a></li>
+
+	{% endif %}
+
+{% endfor %}
+
+			</ul>
+
+		</div>
+
+		<div class="col-lg-9 posts-wrap">
+
+			{% if posts is not empty %}
+
+				{% for post in posts %}
+
+					<a class="col-md-4 post" href="{{ post.link }}">
+
+						{% if post.thumbnail.src is not empty %}<img src="{{ post.thumbnail.src }}" />{% endif %}
+
+						<h4>{{ post.title }}</h4>
+
+						<p>{{ post.content | excerpt(10) }}</p>
+
+					</a>
+
+				{% endfor %}
+
+			{% else %}
+
+				<h1 class="no-posts">No posts to display</h1>
+
+			{% endif %}
+
+		</div>
+
+	</div>
+
+</section>
+{% endblock %}

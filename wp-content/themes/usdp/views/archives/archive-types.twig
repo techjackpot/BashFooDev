@@ -1,0 +1,89 @@
+{% extends 'page.twig' %}
+
+{% block content %}
+
+	{% include 'partials/breadcrumbs.twig' with {'color': 'gray'} %}
+
+	<section class="page-heading">
+
+		<h1>{{ current_term.name }}</h1>
+
+		<p>We offer a wide variety of equipment for any job. Explore our catalog below or call<br/> <strong>Customer Care at 1-800-321-5061.</strong></p>
+
+	</section>
+
+{% if types is not empty %}
+
+	<section class="types">
+
+		<div class="container">
+
+			<div class="types">
+
+	{% for type in types %}
+
+				<a class="type" href="{{ type.link }}">
+
+					<div class="overlay"><span class="button">Select</span></div>
+
+					{% if type.type_image_file is not empty %}
+
+					<img src="/assets/images/supplied/{{ type.type_image_file }}" />
+
+					{% else %}
+
+					<img src="/assets/images/type-image-not-found.jpg" />
+
+					{% endif %}
+
+					<h3>{{ type.name | lower | title }}</h3>
+
+				</a>
+
+	{% endfor %}
+
+			</div>
+
+		</div>
+
+	</section>
+
+{% else %}
+
+	<section class="types">
+
+		<div class="container">
+
+			<div class="types">
+
+		{% for equipment in current_term.get_posts({'orderby' : 'meta_value', 'meta_key' : 'order', 'order' : 'ASC', 'posts_per_page' : '-1'}) %}
+
+				<a class="type" href="{{ equipment.link }}">
+
+					<div class="overlay"><span class="button">Rent</span></div>
+
+				{% if equipment.image is not empty %} 
+
+					<img src="/assets/images/supplied/{{ equipment.image }}" alt="">
+
+				{% else %}
+
+					<img src="/assets/images/type-image-not-found.jpg" alt="">
+
+				{% endif %}
+
+					<h3>{{ equipment.name | lower | title }}</h3>
+
+				</a>
+
+		{% endfor %}
+
+			</div>
+
+		</div>
+
+	</section>
+
+{% endif %}
+
+{% endblock %}

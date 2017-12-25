@@ -1,0 +1,54 @@
+	{% if post.children('page') is not empty or post.parent.children('page') is not empty %}
+	
+
+		{% if post.parent is not empty %}
+			{% set parent = post.parent %}
+			{% set children = post.parent.children('page') %}
+		{% else %}
+			{% set parent = post %}
+			{% set children = post.children('page') %}
+		{% endif %}
+
+		<section class="subnav nav">
+
+			<div class="container subnav">
+
+				<div class="collapse">
+
+					<ul class="nav navbar-nav subnav hidden-md-down">
+
+						{% for item in children %}
+
+							<li class="nav-item"><a class="nav-link {{post.slug}} {{post.slug == item.slug ? 'active' }}" href="{{ item.get_link }}">{{ item.title }}</a></li>
+
+						{% endfor %}
+
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="nav navbar-nav hidden-lg-up" app-call="app.mobileDropdown.feature">
+
+				<ul class="submenu">
+
+					<a href class="toggle" style="text-decoration: none;" data-toggle="dropdown" data-target="dropdown-menu" role="button" aria-haspopup="true" aria-expanded="false">{{parent.title}} <i class="fa fa-chevron-down {{ parent.title }}" aria-hidden="true"></i></a>
+					
+					<ul class="dropdown-menu" id="dropdown-menu">
+
+						{% for item in children %}
+
+							<li class="nav-item"><a class="nav-link {{post.slug}} {{post.slug == item.slug ? 'active' }}" href="{{ item.get_link }}">{{ item.title }}</a></li>
+
+						{% endfor %}
+
+					</ul>
+
+				</ul>
+
+			</div>
+
+		</section>
+
+	{% endif %}

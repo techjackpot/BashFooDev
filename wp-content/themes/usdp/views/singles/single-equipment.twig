@@ -1,0 +1,187 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+	{% include 'partials/breadcrumbs.twig' %}
+<style>.xsbormar {margin-bottom: 13px;
+    border-bottom: 1px solid silver;
+    padding-bottom: 12px;}</style>	
+<style>
+.specs {
+	overflow: auto;
+}
+.spec-row {
+	display: flex;
+	align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: solid 1px #777;
+}
+.spec-name {
+	flex: 0 0 33%;
+  font-weight: 600;
+}
+.spec-param {
+	flex: 1 0;
+	margin-left: 1rem;
+}
+.spec-param-extra {
+	display: none;
+  font-size: 0.8em;
+  color: #aa3300;
+}
+@media (max-width: 575px) {
+	.spec-row {
+		flex-wrap: wrap;
+	}
+	.spec-param {	
+		flex: 1 0 100%;
+	}
+	.spec-name {
+    margin: 0.25rem 0;
+  }
+	.spec-param:before {
+		/*content: '- ';*/
+	}
+	.spec-param-extra {
+		display: inline;
+	}
+}
+@media (min-width: 576px) {
+	.spec-3 .spec-name {
+		font-size: 1em;
+	}
+	.spec-3 .spec-param {
+		font-size: 0.95em;
+	}
+	.spec-4 .spec-name {
+		font-size: 0.95em;
+	}
+	.spec-4 .spec-param {
+		font-size: 0.85em;
+	}
+	.spec-5 .spec-name {
+		font-size: 0.85em;
+	}
+	.spec-5 .spec-param {
+		font-size: 0.75em;
+	}
+	.spec-6 .spec-name {
+		font-size: 0.75em;
+	}
+	.spec-6 .spec-param {
+		font-size: 0.65em;
+	}
+	.spec-7 .spec-name {
+		font-size: 0.75em;
+	}
+	.spec-7 .spec-param {
+		font-size: 0.6em;
+	}
+}
+</style>
+	<section class="page-heading">
+		<h1>{{ post.terms.0.name }}</h1>
+		<p>If you have questions about this or any of our equipment contact <br/><strong>Customer Care at 1-800-321-5061.</strong></p>
+	</section>
+
+	<section class="page-content">
+		<div class="container">
+
+			<div class="equipment-image">
+				<div>
+
+				{% if post.custom.image is not empty %}
+					<img src="/assets/images/supplied/{{ post.custom.image }}" />
+				{% else %}
+					<img src="/assets/images/type-image-not-found.jpg" />
+				{% endif %}
+				</div>
+			</div>
+
+			<div class="equipment-details">
+
+				<h1>{{ post.title | lower | title }}</h1>
+				<h2>Cat-Class: <span>{{ post.custom.cat }}-{{ post.custom.class }}</span></h2>
+
+				<hr />
+
+				<div class="rates">
+					<div>
+						<strong>Daily Rate</strong><br/>
+						${{ post.custom.day | number_format(2, '.', ',') }}
+					</div>
+					<div>
+						<strong>Weekly Rate</strong><br/>
+						${{ post.custom.week | number_format(2, '.', ',') }}
+					</div>
+					<div>
+						<strong>Monthly Rate</strong><br/>
+						${{ post.custom.month | number_format(2, '.', ',') }}
+					</div>
+				</div>
+
+				<hr />
+
+				{% if specs is not empty %}
+
+				<h3 class="">Specifications</h3>
+
+				<div class="specs ">
+						{{specifc2}}
+					<!--{% for spec in specs %}<pre>{{ specs }}</pre>{% endfor %}-->
+				</div>
+
+				{% endif %}
+				
+				<h3 class="form-heading">Equipment Rental Details <span class="required-fields">*All fields required</span></h3>
+				
+				<form class="add-to-cart">
+
+					<div class="form-wrapper">
+
+						<input type="hidden" name="equipment_id" value="{{ post.ID }}">
+
+						<div class="field-wrap half left">
+
+							<input type="text" name="quantity" placeholder="Quantity" />
+
+						</div>
+
+						<div class="field-wrap half right date-field">
+
+							<input type="text" name="date" placeholder="Date Needed" />
+
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+
+						</div>
+
+						<div class="field-wrap half left">
+
+							<input type="text" name="po" placeholder="PO#/Job Name" />
+
+						</div>
+
+						<div class="field-wrap half right">
+
+							<input type="text" name="city" placeholder="Delivery Zipcode" />
+
+						</div>
+
+						<button type="button" name="add-to-cart-btn" class="btn btn-orange">Add to Cart</button>
+
+					</div>
+
+				</form>
+
+				<div class="continue-shopping">
+					<h3>This item has been placed in your cart.</h3>
+
+					<a href="/cart/" class="btn btn-orange">View Cart</a>
+					<a href="/equipment-catalog/" class="btn btn-orange">Continue Shopping</a>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+{% endblock %}

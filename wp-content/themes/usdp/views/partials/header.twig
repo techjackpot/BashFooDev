@@ -1,0 +1,314 @@
+<style>
+.clicktocall{
+ 
+ 
+ top:1px;
+}
+
+@media screen and (max-width: 899px) and (min-width: 320px) {
+	 .carousel-home,.side-by-side {  
+	  display:none!important;
+	}
+	
+	.nav-up	.logo{
+	    height: 41px;
+		width: 84%;
+		margin-top: 5px;
+	}
+
+}
+
+@media screen and  (min-width: 900px) {
+	.clicktocall,.carousel-home,.side-by-side {  
+	  display:none!important;
+	}
+}
+
+.navbar-brand-mobile {
+	display: none;
+}
+@media screen and (max-width: 991px) {
+	.navbar-brand-mobile {
+		display: inline;
+		height: 57px;
+	}
+	.navbar-brand-mobile img {
+		height: 100%;
+	}
+	.navbar-brand {
+		margin-left: auto;
+	}
+}
+.btn-mobile-cta:hover, .btn-mobile-cta:active {
+	background: #e67e21 !important;
+	color: #fff !important;
+}
+
+.btn-mobile-cta {
+	width: 100%;
+}
+.btn-mobile-cta.clickbtn {
+	width: 100% !important;
+	font-size: 15px !important;
+	height: 28px !important;
+	padding: 3px !important;
+	color: #fff !important;
+}
+
+
+</style>
+<nav class="navbar navbar-light navbar-sticky-top" id="main-nav">
+
+	<div class="container-fluid js-header">
+	
+	  <div style="position: fixed; left: 0; top: auto; height: 28px; bottom: 0; width: 100%;" class="clicktocall">
+			<div style="">
+			  <a href="tel:8003215061" class="btn btn-orange   clickbtn   btn-mobile-cta special-click-to-call">Click to Call<i class="material-icons">phone_in_talk</i></a>
+			</div>
+     </div>
+	
+		<a href="/" class="navbar-brand-mobile"><img src="/assets/images/rental-guy-logo.png" /></a>
+		<a href="/" class="navbar-brand"><img src="/assets/images/logo.png" class="logo" /></a>
+
+		<div class="hidden-lg-up nav-static">
+
+			<div class="navbar-toggler-wrapper">
+
+				<!--<a href="/cart/" class="cart-status"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="cart-count">0</span></a>-->
+
+				<a class="navbar-toggler" style="cursor: pointer;" data-toggle="collapse" data-target="#navbarCollapse"><i class="fa fa-bars" aria-hidden="true"></i></a>
+
+			</div>
+
+		</div>
+		
+		<div class="collapse navbar-toggleable-md" id="navbarCollapse">
+
+			<div class="top-nav hidden-md-down">
+
+				<ul>
+
+					<li><a href="http://visitor.constantcontact.com/d.jsp?m=1102766514326&p=oi" target="_blank">Sign Up for Special Offers</a></li>
+
+					<li><a href="tel:1-800-321-5061">1-800-321-5061</a></li>
+
+					<li><a href="/contact/">Need Help?</a></li>
+
+					<li><a href="/cart/" class="cart-status"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="cart-count">0</span></a></li>
+
+					<li>
+
+						<form action="/" method="get">
+
+							<input type="text" name="s" value="" placeholder="Search">
+
+							<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+						</form>
+
+					</li>
+
+				</ul>
+
+			</div>
+
+			<ul class="nav navbar-nav hidden-md-down">
+
+			{% for item in menu.get_items %}
+
+				<li class="nav-item {{ item.classes|join(' ') }}">
+
+					<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
+
+				</li>
+
+			{% endfor %}
+
+			</ul>
+
+			<div class="mobile-nav-wrap hidden-lg-up">
+
+				<div class="container">
+
+					<ul class="mobile-nav">
+						
+						<li>
+
+							<ul class="mobile-top-nav">
+
+								<li><a href="tel:1-800-321-5061">1-800-321-5061</a></li>
+
+								<li><a href="/cart/" class="cart-status"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="cart-count">0</span></a></li>
+							
+								<li><a class="navbar-toggler-close" data-toggle="collapse" data-target="#navbarCollapse"><img src="/assets/images/navbar-close.png" /></a></li>
+
+							</ul>
+
+						</li>
+
+						<li class="not-mobile-view-only-search-form">
+
+							<form action="/" method="get" class="mobile-search-form">
+
+								<input type="text" name="s" value="" placeholder="Search">
+
+								<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+							</form>
+
+						</li>
+
+						<li class="not-mobile-view-only-search-form">
+
+							<a href="/equipment-catalog/" class="btn btn-orange btn-mobile-cta">Rent Equipment</a>
+
+						</li>
+
+						<li>
+
+							<ul class="mobile-nav-links">
+
+								{% for item in mobilemenu.get_items %}
+
+									<li class="nav-item {{ item.classes|join(' ') }}">
+
+										<a class="nav-link" href="{{ item.get_link }}">{{ item.title }}</a>
+										
+										{% if item.get_children is not empty %}
+
+											<ul class="mobile-subnav-links">
+
+												{% for subitem in item.get_children %}
+
+													<li><a class="nav-link" href="{{ subitem.get_link }}">{{ subitem.title }}</a></li>
+
+												{% endfor %}
+
+											</ul>
+
+										{% endif %}
+
+									</li>
+							{% endfor %}
+
+							</ul>
+
+						</li>
+
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</nav>
+<div class="mobile-view-only-search-form">
+	<form action="/" method="get" class="mobile-search-form">
+
+		<input type="text" name="s" value="" placeholder="Search">
+
+		<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+	</form>
+</div>
+
+
+<style>
+/*	.float-search-box {
+		display: none;
+	}
+	@media screen and (max-width: 991px) {
+		.float-search-box {
+			position: fixed;
+			z-index: 99999;
+			display: block;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+	    background: #fff;
+	    box-shadow: 0 0 4px 2px #eee;
+		}
+		.float-search-trigger {
+			margin: 0.5rem;
+			padding: 0.5rem;
+			cursor: pointer;
+		}
+		.float-search-form {
+			position: absolute;
+			right: -300px;
+
+	    padding: 0.5rem;
+	    display: flex;
+	    top: 0;
+	    background: #fff;
+	    box-shadow: 0 0 4px 2px #eee;
+	    animation: all 0.25s ease;
+		}
+		.float-search-box.expanded .float-search-form {
+			right: 0;
+		}
+	}
+*/
+</style>
+<!--<div class="float-search-box">
+	<i class="fa fa-search float-search-trigger"></i>
+	<form action="/" method="get" class="float-search-form">
+
+		<input type="text" name="s" value="" placeholder="Search">
+
+		<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+	</form>
+</div> -->
+
+<script>
+
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('.js-header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+/*$(document).ready(function() {
+	$(".float-search-trigger").on('click', function() {
+		$(".float-search-box").toggleClass('expanded');
+	})
+})*/
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 100);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('.js-header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('.js-header').removeClass('nav-up').addClass('nav-down');
+        }
+     }
+    
+    lastScrollTop = st;
+}
+</script>

@@ -1,0 +1,38 @@
+{% extends 'page.twig' %}
+
+{% block content %}
+		
+	{% include 'partials/breadcrumbs.twig' %}
+<style>
+.typesli{ list-style-type: none;width: 100%;margin: 0px;padding: 7px;}.typesli li { width: 100%;
+    background: #ffffff;
+    padding: 12px;
+    border-bottom: 1px solid silver;} .typesli li:first {
+	 border-top: 1px solid silver;}	.typesli li:last {
+	 border-bottom: 1px solid silver;	}</style>
+	<section class="page-heading">
+		
+		<h1>Equipment Catalog</h1>
+		<p>We offer a wide variety of equipment for any job. Explore our catalog below or call<br/> <strong>Customer Care at 1-800-321-5061.</strong></p>
+
+	</section>
+
+	<section class=" ">
+
+		<div class=" ">
+
+			<ul class="typesli">
+
+{% for type in types %}
+
+				<li><a class="type" href="{{ type.link }}"> {{ type.name | lower | title }} </a></li>
+
+{% endfor %}
+
+			</ul>
+
+		</div>
+
+	</section>
+
+{% endblock %}

@@ -1,0 +1,430 @@
+{% extends 'page.twig' %}
+
+{% block content %}
+
+	<style>
+	.mobile-types-list {
+		display: none;
+	}
+	.mobile-view-only-search-form {
+		display: none;
+    position: fixed;
+    top: 110px;
+    width: 100%;
+    background: #fff;
+    height: 50px;
+	}
+	.btn-mobile-cta.clickbtn.special-click-to-call i {
+		display: none;
+	}
+	@media screen and (max-width: 575px) {
+		section#mobile-wrap {
+			margin-top: 160px;
+			margin-bottom: 50px;
+		}
+		#mobile-wrap .page-content .non-mobile-types-list {
+			display: none;
+		}
+		#mobile-wrap .page-footer {
+			display: none;
+		}
+		nav.navbar .collapse, nav.navbar .collapsing {
+	    height: calc(100vh - 210px);
+	    top: 160px;
+		}
+		.btn-mobile-cta.clickbtn.special-click-to-call {
+	    font-size: 25px !important;
+	    height: 50px !important;
+	    line-height: 50px !important;
+	    padding: 0 !important;
+	    bottom: 0 !important;
+	    position: fixed;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+		}
+		.btn-mobile-cta.clickbtn.special-click-to-call i {
+			display: block;
+	    font-size: 30px;
+	    color: #555;
+	    margin-left: 0.5rem;
+		}
+		.mobile-types-list {
+			display: block;
+		}
+		.not-mobile-view-only-search-form {
+			display: none !important;
+		}
+		.mobile-view-only-search-form {
+			display: block;
+		}
+		.mobile-view-only-search-form form {
+	    height: 100%;
+	    display: flex;
+	    padding: 10px;
+    	background: #e67e21;
+		}
+		.mobile-view-only-search-form form input {
+			flex: 1 0;
+			border-radius: 4px;
+			padding: 0 8px;
+		}
+		.mobile-view-only-search-form form button {
+			color: #fff;
+			cursor: pointer;
+		}
+	}
+	.typesli{ list-style-type: none;width: 100%;margin: 0px;padding: 7px;}.typesli li { width: 100%;
+    background: #ffffff;
+    padding: 12px;
+    border-bottom: 1px solid silver;} .typesli li:first {
+	 border-top: 1px solid silver;}	.typesli li:last {
+	 border-bottom: 1px solid silver;	}
+	</style>
+
+	<section class="mobile-types-list">
+
+			<ul class="typesli">
+
+{% for type in types %}
+
+				<li><a class="type" href="{{ type.link }}"> {{ type.name | lower | title }} </a></li>
+
+{% endfor %}
+
+			</ul>
+	</section>
+
+<div class="non-mobile-types-list">
+	<section class="hero" style="background-image: url({{ acf.home_hero_background_image.url }});">
+		<div class="overlay"></div>
+		<a href="/equipment-catalog/" class="btn btn-orange hidden-md-up btn-mobile-cta">Rent Equipment</a>
+		<div class="container">
+			<h1>{{ acf.home_hero_heading }}</h1>
+			<p>{{ acf.home_hero_content }}</p>
+
+			{% if acf.home_hero_show_search_box == 1 %}
+				<form class="search-box" role="search" method="get" id="searchform" action="/">
+					<input type="text" name="s" placeholder="What do you need to get the job done?">
+					<button type="submit" name="search-button">
+						<img src="/assets/images/search-icon.png" />
+					</button>
+				</form>
+			{% else %}
+				{% if acf.home_hero_button_content is not empty and acf.home_hero_button_url is not empty %}
+					<a href="{{ acf.home_hero_button_url }}" class="btn btn-orange">{{ acf.home_hero_button_content }}</a>
+				{% endif %}
+			{% endif %}
+		</div>
+	</section>
+
+{% if acf.home_featured_types is not empty %}
+	<section class="featured-types hidden-md-down">
+		<div class="container">
+	{% for row in acf.home_featured_types | batch(4) %}
+		{% set loopparentlast = loop.last %}
+			<div class="types">
+		{% for column in row %}
+				<a class="type" href="{{ function('get_term_link', column.term_id) }}">
+					<div class="overlay"><span class="button">Select</span></div>
+
+					{% if column.type_image_file is not empty %}
+						<img src="/assets/images/supplied/{{ column.type_image_file }}" alt="">
+					{% else %}
+						<img src="/assets/images/type-image-not-found.jpg" />
+					{% endif %}
+
+
+					<h3>{{ column.name }}</h3>
+				</a>
+	 		{% if loop.last and loopparentlast and acf.home_featured_types_show_equipment_dropdown == '1' %}
+				<div class="type search">
+					<h3>{{ acf.home_featured_types_equipment_dropdown_heading }}</h3>
+					<div class="type-dropdown">
+						<span>{{ acf.home_featured_types_equipment_dropdown_button_title }}</span>
+						<i class="fa fa-caret-down" aria-hidden="true"></i>
+						<div class="dropdown-content">
+							<ul>
+							{% for type in types %}
+								<li><a href="{{ type.link }}">{{ type.name }}</a></li>
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					{{ acf.home_featured_types_equipment_dropdown_content }}
+				</div>
+			
+	 		{% endif %}
+ 		{% endfor %}
+	 		</div>
+ 	{% endfor %}
+ 		</div>
+	</section>
+	<!--mobile section-->
+	<section class="featured-types mobile hidden-lg-up">
+	<div class="container">
+
+			<div class="types-mobile">
+
+				<div class="type-mobile">
+							<form action="/" method="get" class="mobile-search-form">
+
+								<input type="text" name="s" value="" placeholder="Search" style="width: 87%;padding: 5px;">
+
+								<button type="submit" style="padding: 4px 8px;margin: -4px;"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+							</form>
+				</div>
+			</div>
+		</div>					
+	</section>
+	<section class="featured-types mobile hidden-lg-up">
+
+		<div class="container">
+
+			<div class="types-mobile">
+
+				<div class="type-mobile">
+
+					<a href="#typecollapse" data-toggle="collapse" class="trigger">Select an Equipment Type</a>
+
+					<div id="typecollapse" class="collapse">
+
+						<ul id="types"></ul>
+
+					</div>
+
+					<div id="typesplaceholder" class="placeholder"></div>
+
+				</div>
+
+				<div class="type-mobile dept">
+
+					<a href="#deptcollapse" data-toggle="collapse" class="trigger">Select a Department</a>
+
+					<div id="deptcollapse" class="collapse">
+
+						<ul id="depts"></ul>
+
+					</div>
+
+					<div id="deptsplaceholder" class="placeholder"></div>
+
+				</div>
+
+				<div class="type-mobile subdept">
+
+					<a href="#subdeptcollapse" data-toggle="collapse" class="trigger">Select a Sub Department</a>
+
+					<div id="subdeptcollapse" class="collapse">
+
+						<ul id="subdepts"></ul>
+
+					</div>
+
+					<div id="subdeptplaceholder" class="placeholder"></div>
+
+				</div>
+
+				<div class="type-mobile equipment">
+
+					<a href="#equipmentcollapse" data-toggle="collapse" class="trigger">Select Equipment</a>
+
+					<div id="equipmentcollapse" class="collapse">
+
+						<ul id="equipment"></ul>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="equipment-detail-wrap">
+
+				<div class="equipment-image">
+
+					<img src="/assets/images/type-image-not-found.png" />
+
+				</div>
+				
+				<h2>Cat-Class: <span></span></h2>
+
+				<div class="rates">
+					<div class="daily">
+						<strong>Daily Rate</strong><br/>
+						$<span>{{ post.custom.day | number_format(2, '.', ',') }}</span>
+					</div>
+					<div class="weekly">
+						<strong>Weekly Rate</strong><br/>
+						$<span>{{ post.custom.week | number_format(2, '.', ',') }}</span>
+					</div>
+					<div class="monthly">
+						<strong>Monthly Rate</strong><br/>
+						$<span>{{ post.custom.month | number_format(2, '.', ',') }}</span>
+					</div>
+				</div>
+
+				<form class="add-to-cart">
+
+					<div class="form-wrapper">
+
+						<input type="hidden" name="equipment_id" value="">
+
+						<div class="field-wrap half left">
+
+							<input type="text" name="quantity" placeholder="Quantity" />
+
+						</div>
+
+						<div class="field-wrap half right date-field">
+
+							<input type="text" name="date" placeholder="Date Needed" />
+
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+
+						</div>
+
+						<div class="field-wrap half left">
+
+							<input type="text" name="po" placeholder="PO#/Job Name" />
+
+						</div>
+
+						<div class="field-wrap half right">
+
+							<input type="text" name="city" placeholder="Delivery Zipcode" />
+
+						</div>
+
+						<button type="button" name="add-to-cart-btn" class="btn btn-orange">Add to Cart</button>
+
+					</div>
+
+				</form>
+
+				<a href="#" class="clear-all-options">Clear All Options ></a>
+
+			</div>
+
+		</div>
+
+	</section>
+{% endif %}
+<!--end mobile section -->
+
+{% if acf.home_carousel_items is not empty %}
+	<section class="carousel-home">
+		<div id="carousel-home" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner" role="listbox">
+				{% for item in acf.home_carousel_items %}
+				<div class="carousel-item {% if loop.first %}active{% endif %}" style="background-image: url({{ item.home_carousel_item_background_image }});">
+					<div class="item-wrap">
+						<div class="overlay"></div>
+						<div class="content-wrap">
+							<h2>{{ item.home_carousel_item_heading }}</h2>
+							{{ item.home_carousel_item_content }}
+							{% if item.home_carousel_item_button_title is not empty and item.home_carousel_item_button_url is not empty %}
+								<a href="{{ item.home_carousel_item_button_url }}" class="btn btn-white">{{ item.home_carousel_item_button_title }}</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% if acf.home_carousel_items | length > 1 %}
+			<a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
+				<img src="/assets/images/chevron-prev.png" alt="">
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">
+				<img src="/assets/images/chevron-next.png" alt="">
+				<span class="sr-only">Next</span>
+			</a>
+			{% endif %}
+		</div>
+	</section>
+{% endif %}
+
+{% if acf.home_callout_heading is not empty %}
+	<section class="our-business">
+		<div class="content-wrap">
+			<h2>{{ acf.home_callout_heading }}</h2>
+			{{ acf.home_callout_content }}
+			{% if acf.home_callout_button_title is not empty and acf.home_callout_button_url is not empty %}
+				<a href="{{ acf.home_callout_button_url }}" class="btn btn-orange">{{ acf.home_callout_button_title }}</a>
+			{% endif %}
+		</div>
+	</section>
+{% endif %}
+
+{% if acf.home_side_by_side is not empty %}
+
+	{% for side_by_side in acf.home_side_by_side %}
+
+	<section class="side-by-side {% if side_by_side.home_side_by_side_left_or_right == 'right' %}reverse{% endif %}">
+
+		{% if side_by_side.home_side_by_side_left_or_right == 'left' %}
+		<div class="image" style="background-image: url({{ side_by_side.home_side_by_side_image.url }});"></div>
+		<div class="content">
+			<div class="content-wrap">
+				<div class="header-wrap">
+					<img src="{{ side_by_side.home_side_by_side_icon.url }}" alt="" width="{{ side_by_side.home_side_by_side_icon.width / 2 }}" height="{{ side_by_side.home_side_by_side_icon.height / 2 }}">
+					<h3>{{ side_by_side.home_side_by_side_heading }}</h3>
+				</div>
+				{{ side_by_side.home_side_by_side_content }}
+				{% if side_by_side.home_side_by_side_button_title is not empty and side_by_side.home_side_by_side_button_url is not empty %}
+					<a href="{{ side_by_side.home_side_by_side_button_url }}" class="btn btn-orange">{{ side_by_side.home_side_by_side_button_title }}</a>
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+
+		{% if side_by_side.home_side_by_side_left_or_right == 'right' %}
+
+		<div class="content">
+			<div class="content-wrap">
+				<div class="header-wrap">			
+					<img src="{{ side_by_side.home_side_by_side_icon.url }}" alt="" width="{{ side_by_side.home_side_by_side_icon.width / 2 }}" height="{{ side_by_side.home_side_by_side_icon.height / 2 }}">
+					<h3>{{ side_by_side.home_side_by_side_heading }}</h3>
+				</div>
+				{{ side_by_side.home_side_by_side_content }}
+				{% if side_by_side.home_side_by_side_button_title is not empty and side_by_side.home_side_by_side_button_url is not empty %}
+					<a href="{{ side_by_side.home_side_by_side_button_url }}" class="btn btn-orange">{{ side_by_side.home_side_by_side_button_title }}</a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="image" style="background-image: url({{ side_by_side.home_side_by_side_image.url }});"></div>
+		{% endif %}
+
+	</section>
+
+	{% endfor %}
+
+{% endif %}
+
+{% if acf.home_cta_left_heading is not empty and acf.home_cta_right_heading is not empty %}
+	<section class="offers-account">
+		<div class="column">
+			<div class="content-wrap">
+				<h3>{{ acf.home_cta_left_heading }}</h3>
+				<p>{{ acf.home_cta_left_content }}</p>
+				{% if acf.home_cta_left_button_title is not empty and acf.home_cta_left_button_url is not empty%}
+					<a href="{{ acf.home_cta_left_button_url }}" class="btn btn-orange">{{ acf.home_cta_left_button_title }}</a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="column">
+			<div class="content-wrap">
+				<h3>{{ acf.home_cta_right_heading }}</h3>
+				<p>{{ acf.home_cta_right_content }}</p>
+				{% if acf.home_cta_right_button_title is not empty and acf.home_cta_right_button_url is not empty %}
+					<a href="{{ acf.home_cta_right_button_url }}" class="btn btn-orange">{{ acf.home_cta_right_button_title }}</a>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+{% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+	{% if post.slug == 'about-us' or post.parent.slug == 'about-us' %}
+		{% include 'partials/subnav.twig' %}
+	{% endif %}
+
+	{% include 'partials/page-header.twig' %}
+
+	<section class="page-content">
+
+		<div class="container">
+
+			{% if post.slug == 'our-team' %} 
+
+					{% include 'partials/our-team.twig' %}
+
+			{% else %}
+
+				<div class="content-wrap">
+
+					{{ post.content }}
+
+
+					{% if post.slug == 'locations' %}
+
+						{% include 'partials/locations.twig' %}
+
+					{% endif %}
+
+				</div>
+				{% endif %}
+
+		</div>
+
+	</section>
+
+{% endblock %}

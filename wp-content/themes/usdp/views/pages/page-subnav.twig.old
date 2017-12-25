@@ -1,0 +1,64 @@
+{% extends 'page.twig' %}
+
+{% if post.parent is empty %}
+		{% set parent = post %}
+		{% set children = post.children %}
+{% else %}
+		{% set parent = post.parent %}
+		{% set children = post.parent.children %}
+{% endif %}
+
+{% block content %}
+
+<section class="subnav-template">
+
+    {% if (post.slug != 'locations') %} <!-- Locations does not include the sub-navigation -->
+
+
+  
+    {% endif %}
+
+    <div class="everything">
+
+    <!-- If post does not have a hero image, use the parent's -->
+    {% if (post.get_field('hero_image') is not empty )%}
+        {% set hero_image = post.get_field('hero_image') %}
+        <div class="hero-image" style="background-image:url({{ hero_image }});"></div>
+        {#<img class="hero-image" src="{{post.get_field('hero_image')}}" alt="Hero image for {{post.title}}">#}
+    {% else %}
+        {% set hero_image = parent.get_field('hero_image') %}
+        <div class="hero-image" style="background-image:url({{ hero_image }});"></div>
+    {% endif %}
+
+    <!--Add Breadcrumbs-->
+    {% include 'partials/breadcrumbs.twig' %}
+
+    <div class="simple-content">
+        <div class="container-content">
+            <h3>{{ post.title }}</h3>
+            <p> {{ post.content }}</p>
+        </div>
+
+        <!-- Block Quote -->
+        {% if post.get_field('quote_copy') is not empty %}
+        <hr>
+            <div class="blockquote-top">
+                <h4>{{post.quote_copy}}</h4>
+                <h6>- {{post.quote_author}}</h6>
+            </div>
+            <div class="container-content">
+                <p>{{post.additional_content}}</p>
+            </div>
+        {% endif %}
+
+        <!-- Location Specific -->
+        {% if post.slug == 'locations' %}
+            {% include 'partials/locations.twig' %}
+        {% endif %}
+
+
+    </div><!--simple-content-->
+    </div>
+    
+</section>
+{% endblock %}

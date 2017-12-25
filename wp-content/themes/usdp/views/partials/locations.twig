@@ -1,0 +1,65 @@
+                <div class="locations">
+
+                    {% for location in post.get_field('location') %}
+
+                        <div class="location">
+
+                            <div class="address">
+
+                                <span>{{ location.location_address }}</span>
+
+                                <span>{{ location.location_city_state }}</span>
+
+                            </div>
+
+                            <div class="phone-number">
+
+                                <span>Phone {{ location.location_phone_number }}</span>
+
+                                <span>Fax {{ location.location_fax_number }}</span>
+
+                            </div>
+
+                            <div class="directions">
+
+                                <a href="https://www.google.com/maps/dir//{{location.location_address}} {{ location.location_city_state }}" class="btn btn-orange" target="_blank">Get Directions</a>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <div id="map_wrapper">
+
+                    <div id="map_canvas" class="mapping"></div>
+
+                </div>
+
+                <script>
+                function initMap() {
+
+                    var map = new google.maps.Map(document.getElementById('map_canvas'), {
+                        zoom: 9,
+                        scrollwheel: false,
+                        center: {lat: 39.7589, lng: -84.1516}
+                    });
+
+                    var marker;
+
+                    {% for location in post.get_field('location') %}
+
+                    marker = new google.maps.Marker({
+                        position: {lat: {{ location.location_latitude }}, lng: {{ location.location_longitude }}},
+                        map: map,
+                    });
+
+                    {% endfor %}
+
+                }
+                </script>
+                <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCndxcNQRyob_J5Ze1Ys9bXVIFTUWyjaU8&callback=initMap">
+                </script>

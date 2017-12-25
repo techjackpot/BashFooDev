@@ -1,0 +1,87 @@
+<button id="toggleSourceModal" data-toggle="modal" data-target="#sourcePreviewModal">View Post</button>
+<div class="modal" tabindex="-1" role="dialog" id="sourcePreviewModal">
+  <div class="modal-dialog modal-lg source-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Post Object</h4>
+      </div>
+      <div class="modal-body">
+        <div class="source-item">
+          <b>Custom</b>{{ d(post.custom) }}
+        </div>
+        <div class="source-item">
+          <b>Full Post</b>{{ d(post) }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<button id="toggleSourceEverythingModal" data-toggle="modal" data-target="#sourcePreviewEverythingModal">View Full Context</button>
+<div class="modal" tabindex="-1" role="dialog" id="sourcePreviewEverythingModal">
+  <div class="modal-dialog modal-lg source-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Context Array</h4>
+      </div>
+      <div class="modal-body">
+          {% for key,item in get_context() %}
+            <div class="source-item">
+              <b>{{ key}}</b> {{ d(item) }}
+            </div>
+          {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- DEBUG STYLE -->
+<style>
+  body.debug-ghosting * {
+    outline: 1px solid red !important;
+    background-color: black !important;
+  }
+  #envIcon {
+    position: fixed;
+    display: inline-block;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #000;
+    color: #fff;
+    font-size: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 10000;
+    opacity: .25;
+  }
+  #envIcon:hover {
+    opacity: 1;
+  }
+</style>
+
+<!-- DEBUG TOGGLE -->
+<script type="text/javascript">
+;(function($, window, document) {
+  $(document).on("keypress", function(e) {
+    // CTRL + `
+    if( e.ctrlKey && e.which == "96" ) {
+      $("body").toggleClass("debug-ghosting");
+    }
+  });
+  //Updated
+  var map = []; // Or you could call it "key"
+  onkeydown = onkeyup = function(e){
+      e = e || event; // to deal with IE
+      map[e.keyCode] = e.type == 'keydown';
+      // console.log(map);
+  }
+}(this.jQuery, this, this.document));
+</script>
+
+<span id="envIcon">ENV: {{ constant('ENV') }} | DB: {{ constant('DB_LOCAL') ? 'local' : 'dev' }}</span>

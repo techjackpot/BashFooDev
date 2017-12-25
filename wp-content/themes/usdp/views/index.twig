@@ -1,0 +1,26 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="full-width">
+      <!-- Blog Posts -->
+      <div class="blog-posts">
+        {% for post in posts %}
+        {% include 'partials/blog-post.twig' %}
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      <nav class="blog-pagination">
+        {% if pagination.prev %}
+        <a href="{{ pagination.prev.link }}" rel="previous">Previous Page</a>
+        {% endif %}
+        {% if pagination.next %}
+        <a href="{{ pagination.next.link }}" rel="next">Next Page</a>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}

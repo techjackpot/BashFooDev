@@ -1,0 +1,163 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+	{% include 'partials/page-header.twig' %}
+
+	<section class="page-content">
+
+		<div class="container">
+
+			<div class="content-wrap not-empty">
+
+				<h2>Summary of items in cart</h2>
+
+				{% for id, item in _session.quote.items %}
+
+					{% set cat = function('get_post_meta', id, 'cat', 'true' ) %}
+
+					{% set class = function('get_post_meta', id, 'class', 'true' ) %}
+
+					{% set images = function('find_equipment_images', cat, class) %}
+
+					{% for a_id, i in item %}
+
+						<div class="cart-item">
+
+							<div class="close-spinner">
+								<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+							</div>
+
+							<div class="image">
+								{% if images is not empty %}
+									<img src="/assets/images/supplied/{{ images.0 }}" />
+								{% else %}
+									<img src="/assets/images/type-image-not-found.jpg" />
+								{% endif %}
+								<a class="edit-item-link">Edit Item</a>
+							</div>
+							
+							<div class="details">
+								<h3>{{ function('get_the_title', id) }}</h3>
+								<h4>Cat-Class: <span>{{ cat }}-{{ class }}</span></h4>
+								
+								<div class="cart-item-details">								
+									<span class="quantity">Quantity: <div>{{ i.quantity }}</div></span>
+									<span class="date">Date Needed: <div>{{ i.date }}</div></span>
+									<span class="po">PO#/Job Name: <div>{{ i.po }}</div></span>
+									<span class="city">Delivery Zipcode: <div>{{ i.city }}</div></span>
+								</div>
+
+								<div class="change-cart-item-details">
+
+									<form action="">
+										
+										<div class="form-wrapper">
+
+											<input type="hidden" name="equip_id" value="{{ id }}">
+											<input type="hidden" name="array_key" value="{{ a_id }}">
+											
+											<div class="field-wrap">
+
+												<label for="quantity">Quantity</label>
+												
+												<input type="text" name="quantity" placeholder="Quantity" value="{{ i.quantity }}"/>
+
+											</div>
+											
+											<div class="field-wrap">
+
+												<label for="date_needed">Date Needed</label>
+												
+												<input type="text" name="date_needed" placeholder="Date Needed" value="{{ i.date }}"/>
+
+											</div>
+											
+											<div class="field-wrap">
+												
+												<label for="po">PO#/Job Name</label>
+
+												<input type="text" name="po" placeholder="PO#/Job Name" value="{{ i.po }}"/>
+
+											</div>
+											
+											<div class="field-wrap">
+
+												<label for="city">Delivery Zipcode</label>
+												
+												<input type="text" name="city" placeholder="Delivery Zipcode" value="{{ i.city }}"/>
+
+											</div>
+
+											<button type="button" name="save-item-details" class="btn btn-orange">Save</button>
+
+										</div>
+
+									</form>
+									
+								</div>
+
+							</div>
+
+							<div class="btn-close-wrap">
+								<img class="btn-close" src="/assets/images/remove-item.png" data-equipment-id="{{ id }}" data-array-key="{{ a_id }}">
+							</div>
+
+						</div>
+
+					{% endfor %}
+
+				{% endfor %}
+
+				<div class="alert alert-danger">
+					<strong>Warning!</strong> Please make sure all of the highlighted fields are completed.
+				</div>
+
+				<form action="">
+					
+					<h2>Contact Information</h2>
+					
+					<div class="field-wrap company-name">
+						<input type="text" name="company-name" placeholder="Company Name *" />
+					</div>
+					
+					<div class="field-wrap full-name">
+						<input type="text" name="full-name" placeholder="First Name *" />
+					</div>
+					
+					<div class="field-wrap last-name">
+						<input type="text" name="last-name" placeholder="Last Name *" />
+					</div>
+					
+					<div class="field-wrap email-address">
+						<input type="text" name="email-address" placeholder="E-mail Address *" />
+					</div>
+
+					<div class="field-wrap phone-number">
+						<input type="text" name="phone-number" placeholder="Phone # *" />
+					</div>
+
+					<h2>Additional Information</h2>
+
+					<div class="field-wrap additional-information">
+						<textarea name="additional-information" placeholder="Tell us more about your project or special instructions"></textarea>
+					</div>
+
+					<button type="button" class="btn btn-block btn-orange btn-submit-cart">Submit Request Now</button>
+
+					<p>Thank you for your submission. A sales associate will be in contact with you about your order. If you have questions please contact <strong>Customer Care at 1-800-321-5061.</strong></p>
+
+				</form>
+
+			</div>
+
+			<div class="content-wrap empty">
+
+				<h1>Your shopping cart is empty</h1>
+
+			</div>
+
+		</div>
+	</section>
+
+{% endblock %}

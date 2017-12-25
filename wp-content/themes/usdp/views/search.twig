@@ -1,0 +1,64 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+{% include 'partials/breadcrumbs.twig' %}
+
+<section class="page-heading">
+	
+	<h1>Search Results</h1>
+
+	<p>Cant find the page you're looking for? Contact us at <br/> <strong>Customer Care at 1-800-321-5061.</strong></p>
+
+</section>
+
+<section class="page-content">
+
+	<div class="container">
+
+		<div class="content-wrap">
+
+			{% if search_results is empty %}
+
+				<h5 style="font-style: italic;">No search results found</h5>
+
+			{% else %}
+
+				{% for post in search_results %}
+
+					{% set images = function('find_equipment_images_by_id', post.id) %}
+
+				<div class= "search-item">
+
+					{% if images is not empty %}
+
+						<a href="{{ post.link }}"><img src="/assets/images/supplied/{{ images.0 }}" alt=""></a>
+
+					{% else %}
+
+						<a href="{{ post.link }}"><img class="no-image" src="/assets/images/type-image-not-found.jpg" /></a>
+
+					{% endif %}
+
+
+					<div class="item-wrap">
+
+						<h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
+
+						<a href="{{ post.link }}" class="seemore">See More ></a>
+											
+					</div>
+
+				</div>
+
+				{% endfor %}
+
+			{% endif %}
+			
+		</div>
+
+	</div>
+
+</section>
+
+{% endblock %}

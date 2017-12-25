@@ -1,0 +1,84 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+{% include 'partials/breadcrumbs.twig' with {'color': 'white'} %}
+
+<section class="page-content">
+
+	<div class="container">
+
+		<div class="sidebar" id="share">
+
+			<h3>Share</h3>
+
+			<ul class="social-share">
+
+				<li>
+
+					<a href="https://www.facebook.com/sharer/sharer.php?u={{ post.link }}" target="_blank"><img src="/assets/images/facebook-share-icon.png" /><span>Share</span></a>
+
+				</li>
+
+				<li>
+
+					<a href="https://twitter.com/intent/tweet?text={{ post.link }}" target="_blank"><img src="/assets/images/twitter-share-icon.png" /><span>Tweet</span></a>
+
+				</li>
+
+				<li>
+
+					<a href="mailto:?body={{ post.link }}" target="_blank"><img src="/assets/images/email-share-icon.png" /><span>Email</span></a>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+		<div class="content-wrap" id="postcontent">
+
+{% if post.thumbnail.src is not empty %}
+
+			<img class="post-header-img" src="{{ post.thumbnail.src }}" alt="">
+
+{% endif %}
+
+			<h1 class="post-title">{{ post.title }}</h1>
+
+			<span class="author">By: {{ post.author.name }}</span>
+
+			{{ post.content }}
+
+		</div>
+
+		<div class="sidebar" id="mostrecent">
+
+			<h3>Most Recent</h3>
+
+{% if recentposts is not empty %}
+
+			<ul class="recent-posts">
+
+	{% for recentpost in recentposts %}
+
+				<li><a href="{{ recentpost.link }}">{{ recentpost.title }}</a></li>
+
+	{% endfor %}
+
+			</ul>
+
+{% else %}
+
+			<p class="noposts">No recent posts to show</p>
+
+{% endif %}
+
+		</div>
+
+		<div class="sidebar-mobile"></div>
+
+	</div>
+
+</section>
+{% endblock %}
