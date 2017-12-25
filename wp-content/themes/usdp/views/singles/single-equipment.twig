@@ -89,8 +89,9 @@
 
 			<div class="equipment-image">
 				<div>
-
-				{% if post.custom.image is not empty %}
+				{% if post.custom._thumbnail_id %}
+					{{ featured_thumbnail }}
+				{% elseif post.custom.image is not empty %}
 					<img src="/assets/images/supplied/{{ post.custom.image }}" />
 				{% else %}
 					<img src="/assets/images/type-image-not-found.jpg" />

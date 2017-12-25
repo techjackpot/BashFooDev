@@ -65,7 +65,10 @@ if(get_post_type() == 'equipment') {
 	$context['specifc2'] = $specific_html2;
 
 	$context['equipment_images'] = find_equipment_images($context['post']->custom['cat'], $context['post']->custom['class']);
-
 }
+
+	if($context['post']->custom['_thumbnail_id']) {
+		$context['featured_thumbnail'] = get_the_post_thumbnail($context['post']->ID);
+	}
 
 Timber::render(array('singles/single-' . get_post_type() . '.twig', 'single.twig', 'index.twig'), $context);

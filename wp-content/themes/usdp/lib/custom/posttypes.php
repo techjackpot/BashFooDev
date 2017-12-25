@@ -35,7 +35,7 @@ add_action( 'init', function() {
 		'label'                 => 'Equipment',
 		'description'           => 'A post type for Rental Equipment',
 		'labels'                => $labels,
-		'supports'              => array( 'title', ),
+		'supports'              => array( 'title', 'thumbnail' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
