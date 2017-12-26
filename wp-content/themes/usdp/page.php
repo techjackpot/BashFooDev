@@ -66,3 +66,9 @@ if($post->post_name=='equipment-catalog'){
 Timber::render(array('pages/page-' . $post->post_name . '.twig', 'page.twig'), $context);
 
 }
+?>
+<style type="text/css">
+	.gform_wrapper .gform_body .gform_fields .gfield .gfield_label, .gform_wrapper.gform_validation_error form .gform_body .gform_fields .gfield_error .validation_message {
+		display: inline-block;
+	}
+</style>
