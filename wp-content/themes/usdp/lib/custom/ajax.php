@@ -17,7 +17,8 @@ function add_to_cart_session() {
 			'quantity' => $_POST['quantity'],
 			'date'     => $_POST['date'],
 			'po'       => $_POST['po'],
-			'city'     => $_POST['city']
+			'city'     => $_POST['city'],
+			'title'     => $_POST['title']
 		);
 	}
 
@@ -42,6 +43,7 @@ function update_single_item_details() {
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['date'] = $_POST['date_needed'];
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['po'] = $_POST['po'];
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['city'] = $_POST['city'];
+	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['title'] = $_POST['title'];
 	wp_die();
 };
 
@@ -65,7 +67,8 @@ function submit_checkout() {
 				'Quantity' => $item['quantity'],
 				'Date' => $item['date'],
 				'PO' => $item['po'],
-				'Delivery Zipcode' => $item['city']
+				'Delivery Zipcode' => $item['city'],
+				'Title' => $item['title']
 			);
 
 		}
