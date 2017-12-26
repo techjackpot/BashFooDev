@@ -92,6 +92,36 @@ html {
 	margin-top: 0 !important;
 }
 
+	.btn-mobile-cta.clickbtn.special-click-to-call i {
+		display: none;
+	}
+	@media screen and (max-width: 575px) {
+		section#mobile-wrap {
+			margin-top: 160px;
+			margin-bottom: 50px;
+		}
+		nav.navbar .collapse, nav.navbar .collapsing {
+	    height: calc(100vh - 210px);
+	    top: 160px;
+		}
+		.btn-mobile-cta.clickbtn.special-click-to-call {
+	    font-size: 25px !important;
+	    height: 50px !important;
+	    line-height: 50px !important;
+	    padding: 0 !important;
+	    bottom: 0 !important;
+	    position: fixed;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+		}
+		.btn-mobile-cta.clickbtn.special-click-to-call i {
+			display: block;
+	    font-size: 30px;
+	    color: #555;
+	    margin-left: 0.5rem;
+		}
+	}
 
 
 </style>
@@ -340,6 +370,34 @@ setInterval(function() {
         didScroll = false;
     }
 }, 100);
+
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+httpGetAsync("http://freegeoip.net/json/", function(data) {
+	var location = JSON.parse(data);
+	var num = '';
+	if (location.city === 'Vandalia') {
+		num = '9378985061';
+	} else if (location.city === 'Franklin') {
+		num = '9375147000';
+	} else if (location.city === 'Cincinnati') {
+		num = '5136124000';
+	}
+
+	if (num) {
+		$('.btn-mobile-cta').attr("href", "tel:"+num);
+	}
+})
 
 function hasScrolled() {
     var st = $(this).scrollTop();
