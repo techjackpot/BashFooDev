@@ -18,7 +18,9 @@ function add_to_cart_session() {
 			'date'     => $_POST['date'],
 			'po'       => $_POST['po'],
 			'city'     => $_POST['city'],
-			'title'     => $_POST['title']
+			'title'    => $_POST['title'],
+			'time' 		 => $_POST['time'],
+			'duration' => $_POST['duration']
 		);
 	}
 
@@ -44,6 +46,8 @@ function update_single_item_details() {
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['po'] = $_POST['po'];
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['city'] = $_POST['city'];
 	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['title'] = $_POST['title'];
+	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['time'] = $_POST['time'];
+	$_SESSION['quote']['items'][$_POST['equip_id']][$_POST['array_key']]['duration'] = $_POST['duration'];
 	wp_die();
 };
 
@@ -68,7 +72,9 @@ function submit_checkout() {
 				'Date' => $item['date'],
 				'PO' => $item['po'],
 				'Delivery Zipcode' => $item['city'],
-				'Title' => $item['title']
+				'Title' => $item['title'],
+				'Time Needed' => $item['time'],
+				'Duration of Rental' => $item['duration']
 			);
 
 		}

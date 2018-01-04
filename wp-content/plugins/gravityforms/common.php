@@ -1356,7 +1356,7 @@ class GFCommon {
 		                                        <font style="font-family: sans-serif; font-size:12px;">%2$s</font>
 		                                    </td>
 		                               </tr>
-		                               ', $field_label, empty( $field_value ) && strlen( $field_value ) == 0 ? '&nbsp;' : $field_value, esc_attr( apply_filters( 'gform_email_background_color_label', '#EAF2FA', $field, $lead ) ), esc_attr( apply_filters( 'gform_email_background_color_data', '#FFFFFF', $field, $lead ) )
+		                               ', $field_label, empty( $field_value ) && strlen( $field_value ) == 0 ? '&nbsp;' : $field_value, esc_attr( apply_filters( 'gform_email_background_color_label', '#ffd1c2', $field, $lead ) ), esc_attr( apply_filters( 'gform_email_background_color_data', '#FFFFFF', $field, $lead ) )
 								);
 								break;
 						}
