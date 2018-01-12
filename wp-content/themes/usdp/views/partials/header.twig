@@ -383,7 +383,7 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
-httpGetAsync("http://freegeoip.net/json/", function(data) {
+httpGetAsync("https://freegeoip.net/json/", function(data) {
 	var location = JSON.parse(data);
 	var num = '';
 	if (location.city === 'Vandalia') {
